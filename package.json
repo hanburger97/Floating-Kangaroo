@@ -18,7 +18,8 @@
     "mongoose": "^4.7.5",
     "mongoose-post-find": "0.0.2",
     "path": "^0.12.7",
-    "request": "^2.79.0"
+    "request": "^2.79.0",
+    "twitter": "^1.7.0"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
