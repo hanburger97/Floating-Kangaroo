@@ -84,8 +84,8 @@ function getResultwLocation (id, coords, whats) {
 
                 //console.log(subtitle);
                 var singleCard = {
-                    "title": thisMerchant.businessName,
                     "image_url":imgUrl,
+                    "title": thisMerchant.businessName,
                     //"subtitle":subtitle.slice(0, 79),
                     "buttons":[
                         {
