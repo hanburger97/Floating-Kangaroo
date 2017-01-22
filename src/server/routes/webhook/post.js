@@ -34,8 +34,9 @@ router.post('/webhook', function (req, res) {
                     action.sendMessage(event.sender.id, data.response)
                 }
             })
-        } else if (event.message && event.message.attachments[0] && event.message.attachments[0].payload){
-            var coord = event.message.attachment[0].payload.coordinates;
+        } else if (event.message && event.message.attachments){
+            var attachment = event.message.attachments[0];
+            var coord = attachment.payload.coordinates;
             console.log(JSON.stringify(coord))
         } else if (event.message && event.message.text) {
             event.message.text = event.message.text.toLowerCase();
