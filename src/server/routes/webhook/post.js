@@ -6,7 +6,7 @@ var Response = mongoose.model('Responses');
 //var User = mongoose.model('Users');
 var Postback = mongoose.model('Postbacks');
 var async = require('async');
-
+var yp = require('../yp_api/query_api');
 
 router.post('/webhook', function (req, res) {
     var events = req.body.entry[0].messaging;
@@ -42,13 +42,12 @@ router.post('/webhook', function (req, res) {
             var attachment = event.message.attachments[0];
             var coord = attachment.payload.coordinates;
             console.log(JSON.stringify(coord));
-            var lat = coord.lat;
-            var long = coord.long;
+
 
 
             /**Insert request to YP API with location **/
 
-
+            yp.getResultwLocation(event.sender.id, coord, ['restaurant', 'italian']);
             /**=====================================**/
 
         } else if (event.message && event.message.text) {

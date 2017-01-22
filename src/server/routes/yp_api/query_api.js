@@ -1,12 +1,34 @@
 // JavaScript source code
 var action = require('../../models/action');
 var request = require("request");
+/**function quickSort (arr) {
+    if (!arr.length)
+        return arr;
+
+    var pivot = arr.splice(0, 1);
+    var less = [];
+    var greater = [];
+
+    arr.forEach(function (el) {
+        console.log(JSON.stringify(el));
+
+        var aa = el.ratings[0].averageRating;
+        var bb = pivot[0].ratings[0].averageRating;
+        if (aa >= bb)
+            less.push(el);
+        else
+            greater.push(el)
+    });
+
+    return quickSort(less).concat(pivot, quickSort(greater))
+};**/
 
 function getResultwLocation (id, coords, whats) {
     var lat = coords.lat;
     var long = coords.long;
     var coord = JSON.stringify(lat) + ','+JSON.stringify(long);
     var what = '';
+    var cards =[];
     for (i=0; i < whats.length; i++){
         what += whats[i] + ' ';
 
@@ -39,10 +61,11 @@ function getResultwLocation (id, coords, whats) {
 
     request(options, function (error, response, body) {
         if (!error) {
-            console.log(body);
-            console.log(body.searchResult[0].merchants[0]);
+            //console.log(body);
+            //console.log(body.searchResult[0].merchants[0]);
             var merchants = body.searchResult[0].merchants;
-            for (i=0; i < 2; i++){
+            //console.log(quickSort(merchants));
+            for (i=0; i < 9; i++){
                 var thisMerchant = merchants[i];
                 var imgUrl = '';
                 if (thisMerchant.images){
@@ -50,40 +73,52 @@ function getResultwLocation (id, coords, whats) {
                 }
                 var subtitles = thisMerchant.textLines[0].textLineLocalized;
                 var subtitle = '';
-                for (i=0; i<subtitles.length; i++){
-                    var sub = subtitles[i];
+                for (z=0; z<subtitles.length; z++){
+                    var sub = subtitles[z];
                     if (sub && sub.languageCode == 'EN'){
                         subtitle = sub.value;
                         break;
                     }
                 }
-                console.log(subtitle);
+
+                //console.log(subtitle);
                 var singleCard = {
                     "title": thisMerchant.businessName,
                     "image_url":imgUrl,
-                    "subtitle":subtitle,
+                    "subtitle":subtitle.slice(0, 79),
                     "buttons":[
                         {
                             "type":"web_url",
-                            "url":"https://petersfancybrownhats.com",
+                            "url":thisMerchant.urls[0].text,
                             "title":"View Website"
                         },{
-                            "type":"postback",
-                            "title":"Start Chatting",
-                            "payload":"DEVELOPER_DEFINED_PAYLOAD"
+                            "type":"web_url",
+                            "url":'https://www.google.ca/maps/@'+thisMerchant.centroid+',19z',
+                            "title":"View on map"
+                        },{
+                            "type":"phone_number",
+                            "title":"Call",
+                            "payload":thisMerchant.phones[0].phoneNumber
                         }
                     ]
                 };
-                console.log(JSON.stringify(singleCard))
-
+                //console.log(JSON.stringify(singleCard))
+                cards.push(singleCard);
             }
+            console.log(JSON.stringify(cards))
+            var msg = {
+                "attachment":{
+                    "type":"template",
+                    "payload":{
+                        "template_type":"generic",
+                        "elements": cards
+                    }
+                }
+            };
+            action.sendMessage(id, msg)
         }
     })
 }
+
 module.exports= getResultwLocation;
-var whats=['restaurant','italian'];
-var coords = {
-    lat: 45.4754418,
-    long: -73.5863705
-};
-getResultwLocation(2, coords, whats);
+
