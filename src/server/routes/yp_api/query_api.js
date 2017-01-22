@@ -71,6 +71,7 @@ function getResultwLocation (id, coords, whats) {
                 if (thisMerchant.images){
                     imgUrl = thisMerchant.images[0].url
                 }
+                /**
                 var subtitles = thisMerchant.textLines[0].textLineLocalized;
                 var subtitle = '';
                 for (z=0; z<subtitles.length; z++){
@@ -79,13 +80,13 @@ function getResultwLocation (id, coords, whats) {
                         subtitle = sub.value;
                         break;
                     }
-                }
+                }**/
 
                 //console.log(subtitle);
                 var singleCard = {
                     "title": thisMerchant.businessName,
                     "image_url":imgUrl,
-                    "subtitle":subtitle.slice(0, 79),
+                    //"subtitle":subtitle.slice(0, 79),
                     "buttons":[
                         {
                             "type":"web_url",
