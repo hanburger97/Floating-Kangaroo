@@ -99,7 +99,7 @@ function getResultwLocation (id, coords, whats) {
                         },{
                             "type":"phone_number",
                             "title":"Call",
-                            "payload":thisMerchant.phones[0].phoneNumber
+                            "payload":'+1'+thisMerchant.phones[0].phoneNumber
                         }
                     ]
                 };
