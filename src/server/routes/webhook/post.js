@@ -30,6 +30,10 @@ router.post('/webhook', function (req, res) {
                         }
 
                     ]})
+                } else if (data && data.action && data.action=='QueryYP') {
+
+
+
                 } else {
                     action.sendMessage(event.sender.id, data.response)
                 }
@@ -37,7 +41,16 @@ router.post('/webhook', function (req, res) {
         } else if (event.message && event.message.attachments){
             var attachment = event.message.attachments[0];
             var coord = attachment.payload.coordinates;
-            console.log(JSON.stringify(coord))
+            console.log(JSON.stringify(coord));
+            var lat = coord.lat;
+            var long = coord.long;
+
+
+            /**Insert request to YP API with location **/
+
+
+            /**=====================================**/
+
         } else if (event.message && event.message.text) {
             event.message.text = event.message.text.toLowerCase();
             var words = event.message.text.split(' ');
@@ -57,10 +70,7 @@ router.post('/webhook', function (req, res) {
                         }
 
                         else if (!data) {
-                            //console.log('No data');
                             r.push('a');
-                            //console.log("r is " + r);
-                            //console.log('words2 is ' + words2);
                             if (r.length == words2.length) {
                                 //console.log("NO REPLY");
                                 action.sendMessage(event.sender.id, {text: "Sorry I didn't get that, I am a bot afterall", quick_replies:[
