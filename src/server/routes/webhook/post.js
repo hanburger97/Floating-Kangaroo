@@ -34,9 +34,7 @@ router.post('/webhook', function (req, res) {
                     action.sendMessage(event.sender.id, data.response)
                 }
             })
-        } else if (event.message && event.message.attachments[0]){
-
-        } else if (event.message && event.message.text) {
+        }  else if (event.message && event.message.text) {
             event.message.text = event.message.text.toLowerCase();
             var words = event.message.text.split(' ');
             var words2 = event.message.text.split(' ');
