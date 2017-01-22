@@ -21,7 +21,7 @@ router.post('/webhook', function (req, res) {
                 if (error) {
                     console.log(error)
                 } else if (!data){
-                    logic.sendMessage(event.sender.id, {text: "Sorry I didn't understand  that", quick_replies:[
+                    action.sendMessage(event.sender.id, {text: "Sorry I didn't understand  that", quick_replies:[
 
                         {
                             "content_type":"text",
@@ -31,7 +31,7 @@ router.post('/webhook', function (req, res) {
 
                     ]})
                 } else {
-                    logic.sendMessage(event.sender.id, data.response)
+                    action.sendMessage(event.sender.id, data.response)
                 }
             })
         } else if (event.message && event.message.attachments[0]){
@@ -61,7 +61,7 @@ router.post('/webhook', function (req, res) {
                             //console.log('words2 is ' + words2);
                             if (r.length == words2.length) {
                                 //console.log("NO REPLY");
-                                logic.sendMessage(event.sender.id, {text: "Sorry I didn't get that, I am a bot afterall", quick_replies:[
+                                action.sendMessage(event.sender.id, {text: "Sorry I didn't get that, I am a bot afterall", quick_replies:[
 
                                     {
                                         "content_type":"text",
@@ -77,9 +77,9 @@ router.post('/webhook', function (req, res) {
                             if (data && data.action && data.action.operation == 'Timeout') {
                                 var until = new Date(new Date().getTime() + (Number(data.action.value) * 1000));
                                 pausedUsers[event.sender.id] = until;
-                                logic.sendMessage(event.sender.id, data.response);
+                                action.sendMessage(event.sender.id, data.response);
                             } else if (data) {
-                                logic.sendMessage(event.sender.id, data.response);
+                                action.sendMessage(event.sender.id, data.response);
 
                             }
                         }
@@ -108,7 +108,7 @@ router.post('/webhook', function (req, res) {
                 if (err) {
                     console.log(err)
                 } else if (!data) {
-                    logic.sendMessage(event.sender.id, {text: "Oops it seems the button you clicked ", quick_replies:[
+                    action.sendMessage(event.sender.id, {text: "Oops it seems the button you clicked ", quick_replies:[
                         {
                             "content_type":"text",
                             "title":"Return to menu",
@@ -117,7 +117,7 @@ router.post('/webhook', function (req, res) {
 
                     ]});
                 } else {
-                    logic.sendMessage(event.sender.id, data.response);
+                    action.sendMessage(event.sender.id, data.response);
                 }
             });
         }
