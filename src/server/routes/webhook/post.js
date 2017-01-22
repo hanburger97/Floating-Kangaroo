@@ -38,7 +38,8 @@ router.post('/webhook', function (req, res) {
                     action.sendMessage(event.sender.id, data.response)
                 }
             })
-        } else if (event.message && event.message.attachments){
+        } else if (event.message && event.message.attachments && event.message.attachments[0].payload){
+            console.log('In the elif of location');
             var attachment = event.message.attachments[0];
             var coord = attachment.payload.coordinates;
             console.log(JSON.stringify(coord));
