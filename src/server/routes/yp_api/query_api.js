@@ -120,5 +120,5 @@ function getResultwLocation (id, coords, whats) {
     })
 }
 
-module.exports= getResultwLocation;
+module.exports.getResultwLocation = getResultwLocation;
 
