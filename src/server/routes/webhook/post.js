@@ -44,11 +44,8 @@ router.post('/webhook', function (req, res) {
             console.log(JSON.stringify(coord));
 
 
-
-            /**Insert request to YP API with location **/
-
             yp.getResultwLocation(event.sender.id, coord, ['restaurant', 'italian']);
-            /**=====================================**/
+
 
         } else if (event.message && event.message.text) {
             event.message.text = event.message.text.toLowerCase();
