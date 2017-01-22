@@ -1,0 +1,70 @@
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <h3>Responses</h3>
+            <table class="table">
+                <tr>
+                    <th>Triggering Word</th>
+                    <th>Response Object</th>
+                    <th>Action</th>
+                </tr>
+                <tr>
+                    <td><input type="text" ng-model="trigger" placeholder="Trigger"></td>
+                    <td><textarea type="text" ng-model="response" placeholder="Response"></textarea></td>
+                    <td><p><span style="font-style: italic">To add Action go in Edit after creating Response</span></p><!--<input type="text" ng-model="action">--></td>
+                    <td><button class="btn" ng-disabled="!(trigger.length && response.length)" ng-click="add()">Add </button></td>
+                </tr>
+                <tr ng-repeat="r in responses">
+
+                    <td>{{r.trigger}}</td>
+                    <td>{{r.response}}</td>
+                    <td>{{r.action}}</td>
+                    <td><button class="btn" ng-click="$parent.remove(r)">Remove</button></td>
+                    <td><button class="btn" ng-click="$parent.toEdit(r)">Edit</button></td>
+
+                </tr>
+
+            </table>
+        </div>
+
+    </div>
+
+
+    <!---Postback section   --->
+    <div class="row" ng-controller="postbacks">
+        <div class="col-md-10 col-md-offset-1">
+            <h3>Postbacks</h3>
+            <table class="table">
+
+                <tr>
+                    <th>Postback Trigger</th>
+                    <th>Response Object</th>
+                    <th>Action</th>
+                </tr>
+                <tr>
+                    <td><input type="text" ng-model="trigger" placeholder="Trigger"></td>
+                    <td><textarea type="text" ng-model="response" placeholder="Response"></textarea></td>
+                    <td><p><span style="font-style: italic">To add Action go in Edit after creating Response</span></p><!--<input type="text" ng-model="action">--></td>
+                    <td><button class="btn" ng-disabled="!(trigger.length && response.length)" ng-click="add()">Add</button></td>
+                </tr>
+                <tr ng-repeat="p in postbacks">
+
+                    <td>{{p.trigger}}</td>
+                    <td>{{p.response}}</td>
+                    <td>{{p.action}}</td>
+                    <td><button class="btn" ng-click="$parent.remove(p)">Remove</button></td>
+                    <td><button class="btn" ng-click="$parent.toEdit(p)">Edit</button></td>
+
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</div>
+<div ng-controller="logger">
+        <pre>
+            <p ng-repeat="e in events track by $index">{{$index}} -{{e}}</p>
+        </pre>
+</div>

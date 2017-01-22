@@ -10,7 +10,8 @@ server.listen((process.env.PORT || 3000));
 
 //twitter part
 require('./routes/twitter');
-//server.use(express.static('./src/client/public'));
+//
+server.use(express.static('./src/client/public'));
 for (var route in routes) {
     server.use(routes[route])
 }

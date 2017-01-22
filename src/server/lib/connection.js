@@ -39,3 +39,6 @@ process.on('SIGTERM', function() {
 
 
 require('../models/What');
+require('../models/User');
+require('../models/postback');
+require('../models/response');
