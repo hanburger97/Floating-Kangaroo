@@ -52,7 +52,7 @@ router.post('/webhook', function (req, res) {
                             console.log(err);
                         }
 
-                        else if (!data && !stopAutoReply) {
+                        else if (!data) {
                             //console.log('No data');
                             r.push('a');
                             //console.log("r is " + r);
@@ -71,7 +71,6 @@ router.post('/webhook', function (req, res) {
                             }
                         }
                         else {
-                            stopAutoReply = false;
                             if (data && data.action && data.action.operation == 'Timeout') {
                                 var until = new Date(new Date().getTime() + (Number(data.action.value) * 1000));
                                 pausedUsers[event.sender.id] = until;
